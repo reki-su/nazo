@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>謎解きヒント＆解答</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .toggle-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            outline: none;
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.98);
+        }
+
+        .toggle-btn.answer {
+            background: #e74c3c; /* 解答ボタンは少し目立つ赤色 */
+        }
+
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            padding: 15px;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .is-open {
+            max-height: 200px; /* 内容に合わせて調整 */
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>謎解きのヒント・解答</h1>
+    
+    <div class="button-group">
+        <button class="toggle-btn" onclick="toggleContent('hint1')">ヒント 1</button>
+        <div id="hint1" class="content">
+            <p>数字は五十音表（あいうえお表）の行と段を表しているようです。例えば「3 5」は「さ行の5番目」なので……？</p>
+        </div>
+
+        <button class="toggle-btn" onclick="toggleContent('hint2')">ヒント 2</button>
+        <div id="hint2" class="content">
+            <p>「↑」や「↓」は、その文字を五十音順で一つ進めたり戻したりすることを意味しています。「1 8」は「あ行の8番目」ではありません。数字をどう分けるかが鍵です。</p>
+        </div>
+
+        <button class="toggle-btn answer" onclick="toggleContent('answer')">解答を見る</button>
+        <div id="answer" class="content">
+            <p style="font-weight: bold; color: #e74c3c;">正解は「プログラミング」です！<br>
+            <span style="font-weight: normal; color: #666; font-size: 0.8rem;">解説：数字を1桁ずつに分け、あ=11、い=12…のように当てはめます。矢印はその文字をずらします。</span></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleContent(id) {
+        const content = document.getElementById(id);
+        const isOpen = content.classList.contains('is-open');
+        
+        // 他のコンテンツを閉じる（アコーディオン形式）
+        document.querySelectorAll('.content').forEach(el => el.classList.remove('is-open'));
+        
+        // クリックしたものが閉じていれば開く
+        if (!isOpen) {
+            content.classList.add('is-open');
+        }
+    }
+</script>
+
+</body>
+</html>
